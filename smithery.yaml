@@ -1,0 +1,10 @@
+name: sleep-tracker-ai-mcp
+description: "MEOK AI Labs — Sleep Tracker tools for AI agents and LLMs"
+vendor: MEOK AI Labs
+homepage: https://meok.ai
+repository: https://github.com/CSOAI-ORG/sleep-tracker-ai-mcp
+license: MIT
+categories: [Health, Wellness]
+tags: [sleep-tracking, sleep-analysis, circadian-rhythm, sleep-quality, health-monitoring]
+runtime: python
+entrypoint: server.py

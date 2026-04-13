@@ -1,0 +1,21 @@
+{
+  "name": "sleep-tracker-ai-mcp",
+  "description": "MEOK AI Labs \u2014 Sleep Tracker tools for AI agents and LLMs",
+  "vendor": "MEOK AI Labs",
+  "homepage": "https://meok.ai",
+  "repository": "https://github.com/CSOAI-ORG/sleep-tracker-ai-mcp",
+  "runtime": "python",
+  "entrypoint": "server.py",
+  "tools": [
+    "log_sleep",
+    "get_sleep_trend"
+  ],
+  "categories": [
+    "Health",
+    "Wellness"
+  ],
+  "pricing": {
+    "free": "50 calls/day",
+    "pro": "$9/mo"
+  }
+}

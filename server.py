@@ -3,11 +3,14 @@
 import sys, os
 sys.path.insert(0, os.path.expanduser('~/clawd/meok-labs-engine/shared'))
 from auth_middleware import check_access
+from persistence import ServerStore
 
 import json
 from datetime import datetime, timezone
 from collections import defaultdict
 from mcp.server.fastmcp import FastMCP
+
+_store = ServerStore("sleep-tracker-ai")
 
 FREE_DAILY_LIMIT = 15
 _usage = defaultdict(list)
@@ -16,9 +19,6 @@ def _rl(c="anon"):
     _usage[c] = [t for t in _usage[c] if (now-t).total_seconds() < 86400]
     if len(_usage[c]) >= FREE_DAILY_LIMIT: return json.dumps({"error": f"Limit {FREE_DAILY_LIMIT}/day"})
     _usage[c].append(now); return None
-
-# In-memory sleep log
-_sleep_logs: list[dict] = []
 
 mcp = FastMCP("sleep-tracker-ai", instructions="Track sleep duration and quality, analyse patterns, and get personalised sleep recommendations. By MEOK AI Labs.")
 
@@ -33,7 +33,7 @@ def log_sleep(hours: float, quality: int = 5, bedtime: str = "", wake_time: str 
     hours = round(max(0, min(hours, 24)), 1)
     quality = max(1, min(quality, 10))
     entry = {
-        "id": len(_sleep_logs) + 1,
+        "id": _store.list_length("sleep_logs") + 1,
         "hours": hours,
         "quality": quality,
         "bedtime": bedtime or None,
@@ -42,7 +42,7 @@ def log_sleep(hours: float, quality: int = 5, bedtime: str = "", wake_time: str 
         "date": datetime.now(timezone.utc).date().isoformat(),
         "logged_at": datetime.now(timezone.utc).isoformat(),
     }
-    _sleep_logs.append(entry)
+    _store.append("sleep_logs", entry)
     # Quick feedback
     if hours < 6:
         feedback = "Below recommended sleep. Aim for 7-9 hours."
@@ -55,7 +55,8 @@ def log_sleep(hours: float, quality: int = 5, bedtime: str = "", wake_time: str 
     else:
         feedback = "Decent night. Small improvements in sleep hygiene can help."
     # Running averages
-    recent = _sleep_logs[-7:] if len(_sleep_logs) >= 7 else _sleep_logs
+    all_logs = _store.list("sleep_logs")
+    recent = all_logs[-7:] if len(all_logs) >= 7 else all_logs
     avg_hours = sum(e["hours"] for e in recent) / len(recent)
     avg_quality = sum(e["quality"] for e in recent) / len(recent)
     return json.dumps({
@@ -66,7 +67,7 @@ def log_sleep(hours: float, quality: int = 5, bedtime: str = "", wake_time: str 
             "avg_hours": round(avg_hours, 1),
             "avg_quality": round(avg_quality, 1),
         },
-        "total_entries": len(_sleep_logs),
+        "total_entries": _store.list_length("sleep_logs"),
     }, indent=2)
 
 
@@ -77,10 +78,11 @@ def get_sleep_stats(days: int = 7, api_key: str = "") -> str:
     if not allowed:
         return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})
     if err := _rl(): return err
-    if not _sleep_logs:
+    all_logs = _store.list("sleep_logs")
+    if not all_logs:
         return json.dumps({"message": "No sleep data yet. Log your first night!", "entries": 0})
     days = max(1, min(days, 365))
-    logs = _sleep_logs[-days:] if len(_sleep_logs) > days else _sleep_logs
+    logs = all_logs[-days:] if len(all_logs) > days else all_logs
     hours_list = [e["hours"] for e in logs]
     quality_list = [e["quality"] for e in logs]
     avg_hours = sum(hours_list) / len(hours_list)
@@ -137,15 +139,16 @@ def analyze_patterns(api_key: str = "") -> str:
     if not allowed:
         return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})
     if err := _rl(): return err
-    if len(_sleep_logs) < 3:
-        return json.dumps({"message": f"Need at least 3 entries for pattern analysis. Currently have {len(_sleep_logs)}."})
+    all_logs = _store.list("sleep_logs")
+    if len(all_logs) < 3:
+        return json.dumps({"message": f"Need at least 3 entries for pattern analysis. Currently have {len(all_logs)}."})
     # Duration vs quality correlation
-    high_quality = [e for e in _sleep_logs if e["quality"] >= 7]
-    low_quality = [e for e in _sleep_logs if e["quality"] <= 4]
+    high_quality = [e for e in all_logs if e["quality"] >= 7]
+    low_quality = [e for e in all_logs if e["quality"] <= 4]
     avg_hours_hq = sum(e["hours"] for e in high_quality) / len(high_quality) if high_quality else 0
     avg_hours_lq = sum(e["hours"] for e in low_quality) / len(low_quality) if low_quality else 0
     # Bedtime analysis
-    bedtime_entries = [e for e in _sleep_logs if e.get("bedtime")]
+    bedtime_entries = [e for e in all_logs if e.get("bedtime")]
     bedtime_insight = None
     if bedtime_entries:
         early = [e for e in bedtime_entries if e["bedtime"] and e["bedtime"] < "23:00"]
@@ -158,17 +161,17 @@ def analyze_patterns(api_key: str = "") -> str:
             "better_before_11pm": early_quality > late_quality if early and late else None,
         }
     # Weekly pattern
-    best_night = max(_sleep_logs, key=lambda e: e["quality"])
-    worst_night = min(_sleep_logs, key=lambda e: e["quality"])
+    best_night = max(all_logs, key=lambda e: e["quality"])
+    worst_night = min(all_logs, key=lambda e: e["quality"])
     # Optimal range
-    good_nights = [e for e in _sleep_logs if e["quality"] >= 7]
+    good_nights = [e for e in all_logs if e["quality"] >= 7]
     optimal_range = None
     if good_nights:
         optimal_min = min(e["hours"] for e in good_nights)
         optimal_max = max(e["hours"] for e in good_nights)
         optimal_range = {"min_hours": optimal_min, "max_hours": optimal_max}
     return json.dumps({
-        "total_entries_analysed": len(_sleep_logs),
+        "total_entries_analysed": len(all_logs),
         "duration_quality_link": {
             "high_quality_avg_hours": round(avg_hours_hq, 1) if high_quality else None,
             "low_quality_avg_hours": round(avg_hours_lq, 1) if low_quality else None,
@@ -190,7 +193,8 @@ def get_recommendations(api_key: str = "") -> str:
     if err := _rl(): return err
     recommendations = []
     priority_tips = []
-    if not _sleep_logs:
+    all_logs = _store.list("sleep_logs")
+    if not all_logs:
         return json.dumps({
             "message": "Start logging sleep to get personalised recommendations!",
             "general_tips": [
@@ -201,7 +205,7 @@ def get_recommendations(api_key: str = "") -> str:
                 "Limit caffeine after 2pm",
             ],
         })
-    recent = _sleep_logs[-7:] if len(_sleep_logs) >= 7 else _sleep_logs
+    recent = all_logs[-7:] if len(all_logs) >= 7 else all_logs
     avg_hours = sum(e["hours"] for e in recent) / len(recent)
     avg_quality = sum(e["quality"] for e in recent) / len(recent)
     # Duration recommendations

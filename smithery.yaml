@@ -1,4 +1,10 @@
 name: sleep-tracker-ai-mcp
 description: MEOK AI Labs MCP Server
 version: 1.0.0
-tools: []
+tools:
+- name: log_sleep
+  description: Log sleep
+  parameters: []
+- name: get_sleep_trend
+  description: Get sleep trend
+  parameters: []

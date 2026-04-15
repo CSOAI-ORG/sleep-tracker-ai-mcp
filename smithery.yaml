@@ -1,6 +1,6 @@
 name: sleep-tracker-ai-mcp
-description: Track sleep duration and quality, analyse patterns, and get personalised
-  sleep recommendations. By M
+description: 'Sleep Tracker Ai MCP server. Tools: log sleep, get sleep stats, analyze
+  patterns. Built by MEOK AI Labs.'
 version: 1.0.0
 tools:
 - name: log_sleep

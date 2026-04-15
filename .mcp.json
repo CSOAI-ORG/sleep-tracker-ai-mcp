@@ -1,11 +1,51 @@
 {
   "name": "sleep-tracker-ai-mcp",
-  "description": "> **By [MEOK AI Labs](https://meok.ai)** \u2014 MEOK AI Labs MCP Server",
+  "description": "> **By [MEOK AI Labs](https://meok.ai)** \u2014 Track sleep duration and quality, analyse patterns, and get personalised sleep recommendations. By M",
   "version": "1.0.0",
   "tools": [
     {
       "name": "log_sleep",
-      "description": "Log sleep",
+      "description": "Log a sleep entry. Hours slept, quality 1-10 (10=best), optional bedtime/wake_time (HH:MM), and notes.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "hours": {
+            "type": "number"
+          },
+          "quality": {
+            "type": "integer"
+          },
+          "bedtime": {
+            "type": "string"
+          },
+          "wake_time": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hours"
+        ]
+      }
+    },
+    {
+      "name": "get_sleep_stats",
+      "description": "Get sleep statistics over the last N days. Includes averages, trends, and consistency scores.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "integer"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "analyze_patterns",
+      "description": "Analyse sleep patterns to find correlations between bedtime, duration, quality, and notes.",
       "parameters": {
         "type": "object",
         "properties": {},
@@ -13,8 +53,8 @@
       }
     },
     {
-      "name": "get_sleep_trend",
-      "description": "Get sleep trend",
+      "name": "get_recommendations",
+      "description": "Get personalised sleep improvement recommendations based on your logged data.",
       "parameters": {
         "type": "object",
         "properties": {},

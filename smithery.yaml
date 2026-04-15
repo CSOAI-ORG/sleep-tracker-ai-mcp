@@ -1,10 +1,39 @@
 name: sleep-tracker-ai-mcp
-description: MEOK AI Labs MCP Server
+description: Track sleep duration and quality, analyse patterns, and get personalised
+  sleep recommendations. By M
 version: 1.0.0
 tools:
 - name: log_sleep
-  description: Log sleep
+  description: Log a sleep entry. Hours slept, quality 1-10 (10=best), optional bedtime/wake_time
+    (HH:MM), and notes.
+  parameters:
+  - name: hours
+    type: number
+    required: true
+  - name: quality
+    type: integer
+    required: false
+  - name: bedtime
+    type: string
+    required: false
+  - name: wake_time
+    type: string
+    required: false
+  - name: notes
+    type: string
+    required: false
+- name: get_sleep_stats
+  description: Get sleep statistics over the last N days. Includes averages, trends,
+    and consistency scores.
+  parameters:
+  - name: days
+    type: integer
+    required: false
+- name: analyze_patterns
+  description: Analyse sleep patterns to find correlations between bedtime, duration,
+    quality, and notes.
   parameters: []
-- name: get_sleep_trend
-  description: Get sleep trend
+- name: get_recommendations
+  description: Get personalised sleep improvement recommendations based on your logged
+    data.
   parameters: []

@@ -1,60 +1,38 @@
-# Sleep Tracker Ai
+<div align="center">
 
-> By [MEOK AI Labs](https://meok.ai) — Track sleep duration and quality, analyse patterns, and get personalised sleep recommendations. By MEOK AI Labs.
+[![GitHub stars](https://img.shields.io/github/stars/CSOAI-ORG/sleep-tracker-ai-mcp)](https://github.com/CSOAI-ORG/sleep-tracker-ai-mcp/stargazers)
 
-Sleep Tracker AI — log sleep, analyse patterns, and get personalised recommendations. MEOK AI Labs.
+# usleepU trackerU aiU mcp
+
+**Sleep Tracker AI — log sleep, analyse patterns, and get personalised recommendations. MEOK AI Labs.**
+
+[![npm version](https://img.shields.io/npm/v/@meok-ai/sleep-tracker-ai-mcp)](https://www.npmjs.com/package/@meok-ai/sleep-tracker-ai-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![MEOK AI Labs](https://img.shields.io/badge/MEOK_AI_Labs-255+_servers-purple)](https://meok.ai)
+
+[Installation](#installation) · [Docs](https://csoai.org) · [Report Bug](https://github.com/CSOAI-ORG/sleep-tracker-ai-mcp/issues)
+
+</div>
+
+---
 
 ## Installation
 
 ```bash
 pip install sleep-tracker-ai-mcp
+# or
+npm install -g @meok-ai/sleep-tracker-ai-mcp
 ```
 
-## Usage
+## Quick Start
 
-```bash
-# Run standalone
-python server.py
+See the project repository for full documentation and examples.
 
-# Or via MCP
-mcp install sleep-tracker-ai-mcp
-```
+## Enterprise Support
 
-## Tools
-
-### `log_sleep`
-Log a sleep entry. Hours slept, quality 1-10 (10=best), optional bedtime/wake_time (HH:MM), and notes.
-
-**Parameters:**
-- `hours` (float)
-- `quality` (int)
-- `bedtime` (str)
-- `wake_time` (str)
-- `notes` (str)
-
-### `get_sleep_stats`
-Get sleep statistics over the last N days. Includes averages, trends, and consistency scores.
-
-**Parameters:**
-- `days` (int)
-
-### `analyze_patterns`
-Analyse sleep patterns to find correlations between bedtime, duration, quality, and notes.
-
-### `get_recommendations`
-Get personalised sleep improvement recommendations based on your logged data.
-
-
-## Authentication
-
-Free tier: 15 calls/day. Upgrade at [meok.ai/pricing](https://meok.ai/pricing) for unlimited access.
-
-## Links
-
-- **Website**: [meok.ai](https://meok.ai)
-- **GitHub**: [CSOAI-ORG/sleep-tracker-ai-mcp](https://github.com/CSOAI-ORG/sleep-tracker-ai-mcp)
-- **PyPI**: [pypi.org/project/sleep-tracker-ai-mcp](https://pypi.org/project/sleep-tracker-ai-mcp/)
+- 📧 nicholas@csoai.org
+- 🌐 [CSOAI.org](https://csoai.org)
 
 ## License
 
-MIT — MEOK AI Labs
+MIT © [CSOAI](https://csoai.org)

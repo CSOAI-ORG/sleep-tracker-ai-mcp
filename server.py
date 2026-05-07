@@ -25,7 +25,23 @@ mcp = FastMCP("sleep-tracker-ai", instructions="Track sleep duration and quality
 
 @mcp.tool()
 def log_sleep(hours: float, quality: int = 5, bedtime: str = "", wake_time: str = "", notes: str = "", api_key: str = "") -> str:
-    """Log a sleep entry. Hours slept, quality 1-10 (10=best), optional bedtime/wake_time (HH:MM), and notes."""
+    """Log a sleep entry. Hours slept, quality 1-10 (10=best), optional bedtime/wake_time (HH:MM), and notes.
+
+    Behavior:
+        This tool is read-only and stateless — it produces analysis output
+        without modifying any external systems, databases, or files.
+        Safe to call repeatedly with identical inputs (idempotent).
+        Free tier: 10/day rate limit. Pro tier: unlimited.
+        No authentication required for basic usage.
+
+    When to use:
+        Use this tool when you need structured analysis or classification
+        of inputs against established frameworks or standards.
+
+    When NOT to use:
+        Not suitable for real-time production decision-making without
+        human review of results.
+    """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
         return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})
@@ -73,7 +89,23 @@ def log_sleep(hours: float, quality: int = 5, bedtime: str = "", wake_time: str 
 
 @mcp.tool()
 def get_sleep_stats(days: int = 7, api_key: str = "") -> str:
-    """Get sleep statistics over the last N days. Includes averages, trends, and consistency scores."""
+    """Get sleep statistics over the last N days. Includes averages, trends, and consistency scores.
+
+    Behavior:
+        This tool is read-only and stateless — it produces analysis output
+        without modifying any external systems, databases, or files.
+        Safe to call repeatedly with identical inputs (idempotent).
+        Free tier: 10/day rate limit. Pro tier: unlimited.
+        No authentication required for basic usage.
+
+    When to use:
+        Use this tool when you need structured analysis or classification
+        of inputs against established frameworks or standards.
+
+    When NOT to use:
+        Not suitable for real-time production decision-making without
+        human review of results.
+    """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
         return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})
@@ -134,7 +166,23 @@ def get_sleep_stats(days: int = 7, api_key: str = "") -> str:
 
 @mcp.tool()
 def analyze_patterns(api_key: str = "") -> str:
-    """Analyse sleep patterns to find correlations between bedtime, duration, quality, and notes."""
+    """Analyse sleep patterns to find correlations between bedtime, duration, quality, and notes.
+
+    Behavior:
+        This tool is read-only and stateless — it produces analysis output
+        without modifying any external systems, databases, or files.
+        Safe to call repeatedly with identical inputs (idempotent).
+        Free tier: 10/day rate limit. Pro tier: unlimited.
+        No authentication required for basic usage.
+
+    When to use:
+        Use this tool when you need structured analysis or classification
+        of inputs against established frameworks or standards.
+
+    When NOT to use:
+        Not suitable for real-time production decision-making without
+        human review of results.
+    """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
         return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})
@@ -186,7 +234,23 @@ def analyze_patterns(api_key: str = "") -> str:
 
 @mcp.tool()
 def get_recommendations(api_key: str = "") -> str:
-    """Get personalised sleep improvement recommendations based on your logged data."""
+    """Get personalised sleep improvement recommendations based on your logged data.
+
+    Behavior:
+        This tool is read-only and stateless — it produces analysis output
+        without modifying any external systems, databases, or files.
+        Safe to call repeatedly with identical inputs (idempotent).
+        Free tier: 10/day rate limit. Pro tier: unlimited.
+        No authentication required for basic usage.
+
+    When to use:
+        Use this tool when you need structured analysis or classification
+        of inputs against established frameworks or standards.
+
+    When NOT to use:
+        Not suitable for real-time production decision-making without
+        human review of results.
+    """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
         return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})

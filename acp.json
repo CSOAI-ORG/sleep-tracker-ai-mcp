@@ -1,0 +1,22 @@
+{
+  "acpVersion": "0.1",
+  "agent": {
+    "name": "sleep-tracker-ai-mcp",
+    "description": "Sleep Tracker Ai MCP Server by MEOK AI Labs",
+    "version": "1.0.6",
+    "provider": "MEOK AI Labs",
+    "interfaces": [
+      {
+        "type": "mcp",
+        "transport": "stdio",
+        "package": "sleep-tracker-ai-mcp"
+      }
+    ],
+    "capabilities": [
+      "log_sleep",
+      "get_sleep_stats",
+      "analyze_patterns",
+      "get_recommendations"
+    ]
+  }
+}

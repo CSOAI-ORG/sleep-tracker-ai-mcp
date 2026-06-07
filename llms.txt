@@ -1,0 +1,31 @@
+# Sleep Tracker Ai MCP
+
+> Track sleep duration and quality, analyse patterns, and get personalised sleep recommendations
+
+`sleep-tracker-ai-mcp` is a Model Context Protocol (MCP) server by MEOK AI Labs.
+
+## Install
+
+```bash
+pip install sleep-tracker-ai-mcp
+```
+
+Or run without installing:
+
+```bash
+uvx sleep-tracker-ai-mcp
+```
+
+## Tools
+
+- `log_sleep` — Log a sleep entry. Hours slept, quality 1-10 (10=best), optional bedtime/wake_time (HH:MM), and notes.
+- `get_sleep_stats` — Get sleep statistics over the last N days. Includes averages, trends, and consistency scores.
+- `analyze_patterns` — Analyse sleep patterns to find correlations between bedtime, duration, quality, and notes.
+- `get_recommendations` — Get personalised sleep improvement recommendations based on your logged data.
+
+## Links
+
+- Source: https://github.com/CSOAI-ORG/sleep-tracker-ai-mcp
+- PyPI: https://pypi.org/project/sleep-tracker-ai-mcp/
+- MEOK AI Labs: https://meok.ai
+- Council of AI: https://councilof.ai

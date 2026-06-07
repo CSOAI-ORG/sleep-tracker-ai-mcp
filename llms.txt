@@ -1,31 +1,33 @@
-# Sleep Tracker Ai MCP
-
-> Track sleep duration and quality, analyse patterns, and get personalised sleep recommendations
-
-`sleep-tracker-ai-mcp` is a Model Context Protocol (MCP) server by MEOK AI Labs.
+# sleep-tracker-ai-mcp
+# **MCP server for sleep tracker ai mcp operations**
 
 ## Install
-
 ```bash
 pip install sleep-tracker-ai-mcp
 ```
 
-Or run without installing:
-
-```bash
-uvx sleep-tracker-ai-mcp
-```
+## Auth & Rate Limits
+- Free tier: 10 calls/day. No API key required.
+- Pro tier (£79/mo): unlimited + signed attestations.
+- Enterprise (£1,499/mo): white-label.
 
 ## Tools
 
-- `log_sleep` — Log a sleep entry. Hours slept, quality 1-10 (10=best), optional bedtime/wake_time (HH:MM), and notes.
-- `get_sleep_stats` — Get sleep statistics over the last N days. Includes averages, trends, and consistency scores.
-- `analyze_patterns` — Analyse sleep patterns to find correlations between bedtime, duration, quality, and notes.
-- `get_recommendations` — Get personalised sleep improvement recommendations based on your logged data.
+### `log_sleep`
+Log a sleep entry. Hours slept, quality 1-10 (10=best), optional bedtime/wake_time (HH:MM), and notes.
 
-## Links
+### `get_sleep_stats`
+Get sleep statistics over the last N days. Includes averages, trends, and consistency scores.
 
-- Source: https://github.com/CSOAI-ORG/sleep-tracker-ai-mcp
-- PyPI: https://pypi.org/project/sleep-tracker-ai-mcp/
-- MEOK AI Labs: https://meok.ai
-- Council of AI: https://councilof.ai
+### `analyze_patterns`
+Analyse sleep patterns to find correlations between bedtime, duration, quality, and notes.
+
+### `get_recommendations`
+Get personalised sleep improvement recommendations based on your logged data.
+
+
+## Maintainer
+MEOK AI Labs · hello@meok.ai · https://meok.ai · MIT licensed
+
+## Pairs with
+Governance moat: pair this tool with any of MEOK's 38 governance MCPs (EU AI Act, DORA, NIS2, CRA, GDPR, ISO 42001, etc.) for full compliance coverage.

@@ -1,0 +1,9 @@
+# sleep-tracker-ai-mcp - Auto-trigger Rules
+
+When the user asks about sleep tracker, use sleep-tracker-ai-mcp tools: log_sleep, get_sleep_stats, analyze_patterns, get_recommendations
+
+**MCP server for sleep tracker ai mcp operations**
+
+Install: `pip install sleep-tracker-ai-mcp`
+
+By MEOK AI Labs — MIT licensed.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Sleep Tracker AI — log sleep, analyse patterns, and get personalised recommendations. MEOK AI Labs."""
+"""
+Sleep Tracker AI — log sleep, analyse patterns, and get personalised recommendations. MEOK AI Labs."""
 import sys, os
-sys.path.insert(0, os.path.expanduser('~/clawd/meok-labs-engine/shared'))
 from auth_middleware import check_access
 from persistence import ServerStore
 
@@ -67,7 +67,7 @@ def log_sleep(hours: float, quality: int = 5, bedtime: str = "", wake_time: str 
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
-        return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})
+        return json.dumps({"error": msg, "upgrade_url": "https://councilof.ai"})
     if err := _rl(): return err
     hours = round(max(0, min(hours, 24)), 1)
     quality = max(1, min(quality, 10))
@@ -150,7 +150,7 @@ def get_sleep_stats(days: int = 7, api_key: str = "") -> str:
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
-        return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})
+        return json.dumps({"error": msg, "upgrade_url": "https://councilof.ai"})
     if err := _rl(): return err
     all_logs = _store.list("sleep_logs")
     if not all_logs:
@@ -245,7 +245,7 @@ def analyze_patterns(api_key: str = "") -> str:
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
-        return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})
+        return json.dumps({"error": msg, "upgrade_url": "https://councilof.ai"})
     if err := _rl(): return err
     all_logs = _store.list("sleep_logs")
     if len(all_logs) < 3:
@@ -331,7 +331,7 @@ def get_recommendations(api_key: str = "") -> str:
     """
     allowed, msg, tier = check_access(api_key)
     if not allowed:
-        return json.dumps({"error": msg, "upgrade_url": "https://meok.ai/pricing"})
+        return json.dumps({"error": msg, "upgrade_url": "https://councilof.ai"})
     if err := _rl(): return err
     recommendations = []
     priority_tips = []
@@ -392,5 +392,8 @@ def get_recommendations(api_key: str = "") -> str:
     }, indent=2)
 
 
-if __name__ == "__main__":
+def main():
     mcp.run()
+
+if __name__ == '__main__':
+    main()

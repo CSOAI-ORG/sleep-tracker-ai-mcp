@@ -1,0 +1,25 @@
+{
+  "name": "sleep-tracker-ai-mcp",
+  "title": "Sleep Tracker Ai Mcp",
+  "description": "Sleep Tracker Ai MCP server. Tools: log sleep, get sleep stats, analyze patterns. Built by MEOK AI Labs.",
+  "version": "1.0.6",
+  "homepage": "https://meok.ai",
+  "license": "MIT",
+  "transport": {
+    "type": "stdio"
+  },
+  "tools": [
+    {
+      "name": "log_sleep"
+    },
+    {
+      "name": "get_sleep_stats"
+    },
+    {
+      "name": "analyze_patterns"
+    },
+    {
+      "name": "get_recommendations"
+    }
+  ]
+}

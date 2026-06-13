@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import urllib.request as _meter_urlreq
+import urllib.error as _meter_urlerr
 """
 Sleep Tracker AI — log sleep, analyse patterns, and get personalised recommendations. MEOK AI Labs."""
 import sys, os
@@ -21,6 +23,24 @@ def _rl(c="anon"):
     _usage[c].append(now); return None
 
 mcp = FastMCP("sleep-tracker-ai", instructions="Track sleep duration and quality, analyse patterns, and get personalised sleep recommendations. By MEOK AI Labs.")
+
+
+def _server_meter_check(api_key: str = "") -> dict:
+    """Calls the live /verify endpoint for server-side metering. Fail-open."""
+    try:
+        data = json.dumps({"api_key": api_key, "tool": ""}).encode()
+        req = _meter_urlreq.Request(_METER_URL, data=data,
+            headers={"Content-Type": "application/json"}, method="POST")
+        with _meter_urlreq.urlopen(req, timeout=2.5) as r:
+            d = json.loads(r.read())
+            if isinstance(d, dict) and "allowed" in d:
+                return d
+    except Exception:
+        pass
+    return {"allowed": True, "tier": "anonymous", "remaining": 200, "upgrade_url": "https://meok.ai/pricing"}
+
+
+_METER_URL = "https://proofof.ai/verify"
 
 
 @mcp.tool()
